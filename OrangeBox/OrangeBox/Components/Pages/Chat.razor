@@ -1,0 +1,57 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@implements IAsyncDisposable
+@using OrangeBox.Data
+@using OrangeBox.Models
+@using Microsoft.AspNetCore.SignalR.Client
+@using OrangeBox.Hubs
+@inject ILogger<Chat> logger
+
+    <div class="container-fluid">
+        <div class="chat-container">
+            <div class="users-column">
+                <h4>Users</h4>
+                <!-- Dynamically add user names here -->
+            </div>
+            <div class="messages-window">
+                <!-- Dynamically add messages here -->
+                @foreach (var message in messages)
+                {
+                    <ChatMessage Message="message" />
+                }
+            </div>
+        </div>
+        <ChatInput />
+    </div>
+
+
+@code {
+    private HubConnection? hubConnection;
+    private List<Message> messages = new List<Message>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/chathub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<Message>("broadcastMessage", (message) =>
+        {
+            messages.Add(message);
+            StateHasChanged(); // Re-render the component
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.StopAsync();
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

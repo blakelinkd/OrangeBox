@@ -1,0 +1,87 @@
+@page "/chat-input"
+@using OrangeBox.Data
+@using OrangeBox.Models
+@inject ChatContext dbContext
+@inject NavigationManager Navigation
+@inject ILogger<ChatInput> logger
+@rendermode InteractiveServer
+
+<div class="message-input">
+    <EditForm Model="@message" OnValidSubmit="@HandleSubmit" FormName="ChatInputForm">
+        <div class="input-group">
+            <InputText id="messageText" class="form-control" @bind-Value="message.Text" placeholder="Type your message..." />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Send</button>
+            </div>
+        </div>
+    </EditForm>
+    @if (showWarning)
+    {
+        <div class="text-warning">Please enter a message before sending.</div>
+    }
+</div>
+
+@code {
+
+    private Message message = new Message();
+    private bool showWarning = false;
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        SetDefaultUsername();
+    }
+
+    private void SetDefaultUsername()
+    {
+        // Generate a random UID
+        var randomUID = Guid.NewGuid().ToString("N").Substring(0, 8); // 8-character UID
+        message.Username = $"Guest{randomUID}";
+    }
+
+    private async Task HandleSubmit()
+    {
+        logger.LogInformation("HandleSubmit called");
+        logger.LogInformation("message text: " + message.Text);
+        if (!string.IsNullOrWhiteSpace(message.Text))
+        {
+            if (message.Text.StartsWith("/name "))
+            {
+                var newUsername = message.Text[6..].Trim(); // Extract new username
+                if (!string.IsNullOrWhiteSpace(newUsername))
+                {
+                    logger.LogInformation($"Username change detected. Old: {message.Username}, New: {newUsername}");
+
+                    var systemMessage = new Message
+                        {
+                            Username = "System",
+                            Text = $"{message.Username} changed their name to {newUsername}"
+                        };
+
+                    dbContext.Messages.Add(systemMessage);
+                    message.Username = newUsername; // Update username
+                }
+            }
+
+            logger.LogInformation($"Adding message from {message.Username}");
+            dbContext.Messages.Add(message);
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                logger.LogInformation("Message saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error saving message to database.");
+            }
+
+            message = new Message { Username = message.Username }; // Reset message but keep username
+        }
+        else
+        {
+            logger.LogWarning("Message text was empty, not sending message.");
+            showWarning = true; // Show warning to the user
+        }
+    }
+}

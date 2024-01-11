@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyberpunk Chat App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for Cyberpunk Theme */
+
+
+        body {
+            background-color: #111; /* Dark background */
+            color: #fff; /* Light text */
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            display: flex;
+            height: 90vh; /* Adjust as needed */
+            padding: 20px;
+        }
+        .users-column {
+            width: 25%;
+            background-color: #222; /* Slightly lighter dark background */
+            overflow-y: auto; /* Scrollable */
+            padding: 10px;
+            border-right: 2px solid #00ffe9; /* Neon border */
+        }
+        .messages-window {
+            width: 75%;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .message-input {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: #222;
+        }
+        .input-group-text {
+            background-color: #007bff; /* Bootstrap primary color */
+            border-color: #00ffe9; /* Neon border */
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #00ffe9;
+        }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00ffe9; /* Neon scrollbar */
+        }
+        .chat-message {
+            background-color: #333; /* Dark background for each message */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #00ffe9; /* Neon color for icon */
+            border-radius: 50%;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px; /* Aligns the text vertically */
+            margin-right: 10px;
+            color: #111;
+        }
+        .message-header {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .message-text {
+            font-size: 1em;
+        }
+        .timestamp {
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="chat-container">
+            <div class="users-column">
+                <h4>Users</h4>
+                <!-- Dynamically add user names here -->
+            </div>
+            <div class="messages-window">
+                <!-- Dynamically add messages here -->
+                <div class="chat-message">
+                    <div class="user-icon">U</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <strong>Username</strong> <span class="timestamp">12:00 PM</span>
+                        </div>
+                        <div class="message-text">
+                            This is a sample message text.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="message-input">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type your message...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

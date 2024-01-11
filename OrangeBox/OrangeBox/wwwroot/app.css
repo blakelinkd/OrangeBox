@@ -1,0 +1,109 @@
+html {
+    background-color: #111;
+}
+body {
+    background-color: #111; /* Dark background */
+    color: #fff; /* Light text */
+    font-family: Arial, sans-serif;
+}
+
+.container-fluid {
+    background-color: #111;
+}
+
+.chat-container {
+    display: flex;
+    height: 90vh; /* Adjust as needed */
+    padding: 20px;
+    background-color: #1C1E26;
+}
+
+.users-column {
+    width: 25%;
+    background-color: #222; /* Slightly lighter dark background */
+    overflow-y: auto; /* Scrollable */
+    padding: 10px;
+    border-right: 2px solid #00ffe9; /* Neon border */
+}
+
+.messages-window {
+    width: 75%;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.message-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #222;
+}
+
+.input-group-text {
+    background-color: #007bff; /* Bootstrap primary color */
+    border-color: #00ffe9; /* Neon border */
+    color: #fff;
+}
+
+
+.btn-primary {
+    background-color: #ffcc00 !important; /* Cyberpunk neon yellow */
+    border-color: #ffcc00 !important; /* Consistent border color */
+    color: #000 !important; /* Dark text for contrast */
+}
+    .btn-primary:hover {
+        background-color: #e6b800 !important; /* Slightly darker yellow on hover */
+        border-color: #e6b800 !important;
+    }
+
+
+
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ffe9; /* Neon scrollbar */
+}
+
+.chat-message {
+    background-color: #333; /* Dark background for each message */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #00ffe9; /* Neon color for icon */
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px; /* Aligns the text vertically */
+    margin-right: 10px;
+    color: #111;
+}
+
+.message-header {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.message-text {
+    font-size: 1em;
+}
+
+.timestamp {
+    color: #aaa;
+    font-size: 0.8em;
+}
